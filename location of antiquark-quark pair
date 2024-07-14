@@ -1,0 +1,30 @@
+import random
+import numpy as np
+
+class VacuumCylinder:
+    def __init__(self, length, radius, creation_probability):
+        self.length = length
+        self.radius = radius
+        self.creation_probability = creation_probability
+        self.volume = np.pi * radius**2 * length
+
+    def generate_quark_antiquark_pair(self):
+        # Generate random x, y, z coordinates within the cylinder
+        x = random.uniform(-self.radius, self.radius)
+        y = random.uniform(-self.radius, self.radius)
+        z = random.uniform(0, self.length)
+        return x, y, z
+
+    def simulate(self, time_step, total_time):
+        current_time = 0
+        while current_time < total_time:
+            for _ in range(int(self.volume * self.creation_probability * time_step)):
+                # Generate a quark-antiquark pair
+                x, y, z = self.generate_quark_antiquark_pair()
+                # Process pair creation (e.g., print coordinates, store data)
+                print(f"Pair created at ({x}, {y}, {z})")
+            current_time += time_step
+
+# Example usage
+cylinder = VacuumCylinder(length=10, radius=5, creation_probability=0.001)
+cylinder.simulate(time_step=0.1, total_time=10)
